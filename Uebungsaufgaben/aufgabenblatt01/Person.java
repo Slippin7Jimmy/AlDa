@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Person {
-
+	//test
+	
 	private String name;
 	private String telefonnummer;
 	private String geburtsdatum;
