@@ -13,36 +13,136 @@ public class Main {
 			System.out.print(st[i].getKurs() + "\t|");
 		}
 	}
+	
+	public static void calcKursWinPercentageV3(StockTick[] st){
+		int buyDay = 0;
+		int sellDay = 1;
+		double mostWin = 0;
+		int lowest = 0;
+	
+		
+		
+		
+		for (int i = 0; i < st.length; i++) {
+			if (st[i].getKurs() < st[lowest].getKurs()){
+				lowest = i;
+			}
+			
+			double tempWin = (((st[i].getKurs() - st[lowest].getKurs()) / st[lowest].getKurs()) * 100);
+			if (tempWin > mostWin) {
+				mostWin = tempWin;
+				buyDay = lowest+1;
+				sellDay = i+1;
+			}
+			
+		}
+		System.out.println("Biggest Win NEWNEWNEWNEW: " + mostWin);
+//		System.out.println("In €: " + decWin);
+		System.out.println("Kaufen an Tag " + buyDay);
+		System.out.println("Verkaufen an Tag " + sellDay);
+		
+	}
+
+	public static void calcKursWinPercentageV2(StockTick[] st) {
+		int buyDay = 0;
+		int sellDay = 0;
+		double mostWin = 0;
+		double decWin = 0;
+		int i = 0;
+
+		for (int j = i + 1; j < st.length; j++) {
+			double tempWin = (((st[j].getKurs() - st[i].getKurs()) / st[i].getKurs()) * 100);
+			
+			if (tempWin > mostWin) {
+				decWin = st[j].getKurs() - st[i].getKurs();
+				mostWin = tempWin;
+				buyDay = i + 1;
+				sellDay = j + 1;
+			}
+
+			if (j == st.length - 1) {
+				i++;
+				j = i;
+			}
+
+		}
+
+		System.out.println("Biggest Win (Percentage One Loop): " + mostWin);
+		System.out.println("In €: " + decWin);
+		System.out.println("Kaufen an Tag " + buyDay);
+		System.out.println("Verkaufen an Tag " + sellDay);
+
+	}
 
 	// -------Rechnung proz Gewinn-----------------
 	public static void calcKursWinPercentage(StockTick[] st) {
 		double mostWin = 0;
 		int buyDay = 0;
 		int sellDay = 0;
+		double decWin = 0;
 		for (int i = 0; i < st.length; i++) {
 			for (int j = i + 1; j < st.length; j++) {
 				if ((((st[j].getKurs() - st[i].getKurs()) / st[i].getKurs()) * 100) > mostWin) {
 					mostWin = (((st[j].getKurs() - st[i].getKurs()) / st[i].getKurs()) * 100);
+					decWin = st[j].getKurs() - st[i].getKurs();
 					buyDay = i + 1;
 					sellDay = j + 1;
 				}
 			}
 		}
 		System.out.println("Biggest Win (Percentage): " + mostWin);
+		System.out.println("In €: " + decWin);
 		System.out.println("Kaufen an Tag " + buyDay);
 		System.out.println("Verkaufen an Tag " + sellDay);
 	}
 	// -------Rechnung proz Gewinn-----------------
 
 	// -------Rechnung reiner Gewinn-----------------
+
+	public static void calcKursWinFlatV2(StockTick[] st) {
+		int buyDay = 0;
+		int sellDay = 0;
+		double mostWin = 0;
+		double proWin = 0;
+		int i = 0;
+		
+		
+		
+			for (int j = i + 1; j < st.length; j++) {
+				if (st[j].getKurs() - st[i].getKurs() > mostWin) {
+					mostWin = st[j].getKurs() - st[i].getKurs();
+					proWin = (((st[j].getKurs() - st[i].getKurs()) / st[i].getKurs()) * 100);
+					buyDay = i + 1;
+					sellDay = j + 1;
+				}
+			
+		
+
+		
+
+			if (j == st.length - 1) {
+				i++;
+				j = i;
+			}
+
+		}
+
+		System.out.println("Biggest Win (FLAT One Loop): " + mostWin);
+		System.out.println("In %: " + proWin);
+		System.out.println("Kaufen an Tag " + buyDay);
+		System.out.println("Verkaufen an Tag " + sellDay);
+	}
+
 	public static void calcKursWinFlat(StockTick[] st) {
 		double mostWin = 0;
 		int buyDay = 0;
 		int sellDay = 0;
+		double proWin = 0;
 		for (int i = 0; i < st.length - 1; i++) {
 			for (int j = i + 1; j < st.length; j++) {
 				if (st[j].getKurs() - st[i].getKurs() > mostWin) {
 					mostWin = st[j].getKurs() - st[i].getKurs();
+					proWin = (((st[j].getKurs() - st[i].getKurs()) / st[i].getKurs()) * 100);
 					buyDay = i + 1;
 					sellDay = j + 1;
 				}
@@ -50,6 +150,7 @@ public class Main {
 		}
 
 		System.out.println("Biggest Win (FLAT): " + mostWin);
+		System.out.println("In %: " + proWin);
 		System.out.println("Kaufen an Tag " + buyDay);
 		System.out.println("Verkaufen an Tag " + sellDay);
 	}
@@ -101,17 +202,23 @@ public class Main {
 		for (int i = 0; i < st2.length; i++) {
 			st2[i] = new StockTick();
 		}
-		st2[0].setKurs(rand.nextInt(101) + 600, 0);
+		st2[0].setKurs(rand.nextInt(101) + 700, 0);
 		for (int i = 1; i < st2.length; i++) {
-			st2[i].setKurs(st2[i - 1].getKurs(), rand.nextInt(60) - 30);
+			st2[i].setKurs(st2[i - 1].getKurs(), rand.nextInt(80) - 40);
 		}
-		System.out.println("----------------Random-Aufgabe----------------------");
+//		System.out.println("----------------Random-Aufgabe----------------------");
 		printKurs(st2);
 		System.out.println();
-		calcKursWinFlat(st2);
-		System.out.println("------------------------");
+//		calcKursWinFlat(st2);
+//		System.out.println("------------------------");
 		calcKursWinPercentage(st2);
-
+//		System.out.println("----------OneLoop Percentage---------");
+//		calcKursWinPercentageV2(st2);
+//		System.out.println("----------OneLoop Flat---------");
+//		calcKursWinFlatV2(st2);
+		System.out.println("---------------------------");
+		calcKursWinPercentageV3(st2);
+		
 	}
 
 }
