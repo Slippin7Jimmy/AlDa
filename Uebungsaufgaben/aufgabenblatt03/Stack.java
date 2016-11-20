@@ -3,13 +3,18 @@ package aufgabenblatt03;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+=======
+import java.util.EmptyStackException;
+>>>>>>> branch 'master' of https://github.com/slippin7jimmy/AlDa.git
 
 public class Stack {
 
 	private char[] stackArray;
+	private final int MAX = 20;
 	private int top;
 	private final int MAX = 20;
 
@@ -20,17 +25,48 @@ public class Stack {
 	}
 	
 	public Stack() {
+<<<<<<< HEAD
 		
 		stackArray = new char[0];
+=======
+		stackArray = new char[MAX];
+>>>>>>> branch 'master' of https://github.com/slippin7jimmy/AlDa.git
 		this.top = -1;
 	}
 
 	public void push(char c) {
+<<<<<<< HEAD
 		
 		if(top< stackArray.length-1){
 			top++;
 			stackArray[top] = c;
 		}		
+=======
+		if (top < MAX - 1) {
+			top++;
+			stackArray[top] = c;
+		}
+	}
+
+	public char pop() {
+		char temp = stackArray[top];
+		top--;
+		return temp;
+	}
+
+	public boolean isEmpty() {
+		if (stackArray.length <= 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isFull() {
+		if (stackArray[top] != ' ') {
+			return true;
+		}
+		return false;
+>>>>>>> branch 'master' of https://github.com/slippin7jimmy/AlDa.git
 	}
 
 	public char pop() {
@@ -73,43 +109,44 @@ public class Stack {
 			case ')':
 				System.out.println(stackArray.length);
 				System.out.println("drin");
-				if(!isEmpty()){
-				if (stackArray[top] == '(') {
-//					if (isEmpty()) {
-//						System.out.println("Fehler, Klammer(n) zuviel (hinten)");
-//					} else {
+				if (!isEmpty()) {
+					if (stackArray[top] == '(') {
+						// if (isEmpty()) {
+						// System.out.println("Fehler, Klammer(n) zuviel
+						// (hinten)");
+						// } else {
 						pop();
 						System.out.println("popped (");
-//					}
+						// }
+					} else {
+						System.out.println("Klammer fehler ()");
+					}
 				} else {
-					System.out.println("Klammer fehler ()");
-				}
-				}else{
 					System.out.println("Fehler hinten: (");
 				}
 				break;
 			case ']':
-				
-				if(!isEmpty()){
-				if (stackArray[top] == '[') {
-					pop();
-					System.out.println("popped [");
+
+				if (!isEmpty()) {
+					if (stackArray[top] == '[') {
+						pop();
+						System.out.println("popped [");
+					} else {
+						System.out.println("Klammer fehler []");
+					}
 				} else {
-					System.out.println("Klammer fehler []");
-				}
-				}else{
 					System.out.println("Fehler hinten: [");
 				}
 				break;
 			case '}':
-				if(!isEmpty()){
-				if (stackArray[top] == '{') {
-					pop();
-					System.out.println("popped {");
+				if (!isEmpty()) {
+					if (stackArray[top] == '{') {
+						pop();
+						System.out.println("popped {");
+					} else {
+						System.out.println("Klammer fehler {}");
+					}
 				} else {
-					System.out.println("Klammer fehler {}");
-				}
-				}else{
 					System.out.println("Fehler hinten: {");
 				}
 
@@ -125,6 +162,7 @@ public class Stack {
 	}
 
 	public static void main(String[] args) throws IOException {
+<<<<<<< HEAD
 		File f = new File("C:\\Users\\Phili\\git\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
 		
 		Scanner fileReader = new Scanner(f, "UTF-8)");
@@ -133,13 +171,21 @@ public class Stack {
 		{		
 //		FileReader fr = new FileReader("bin\\aufgabenblatt01\\Main.java");
 		
+=======
+		FileReader fr = new FileReader("bin\\aufgabenblatt03\\test");
+		BufferedReader br = new BufferedReader(fr);
+
+>>>>>>> branch 'master' of https://github.com/slippin7jimmy/AlDa.git
 		Stack s2 = new Stack();
 //		s2.readFiles();
 //		System.out.println(reader);
 //		s2.solve(t);
 		// s2.solve("((((Test)))))");
 	}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/slippin7jimmy/AlDa.git
 
 }
