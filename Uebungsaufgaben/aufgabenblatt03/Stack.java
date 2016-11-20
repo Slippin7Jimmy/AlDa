@@ -1,31 +1,60 @@
 package aufgabenblatt03;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Stack {
 
 	private char[] stackArray;
 	private int top;
+	private final int MAX = 20;
 
+	public void readFiles(){
+		InputStream in = this.getClass().getResourceAsStream("/aufgabenblatt01/Main.java");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		System.out.println(reader);
+	}
+	
 	public Stack() {
+		
 		stackArray = new char[0];
 		this.top = -1;
 	}
 
 	public void push(char c) {
-		int lengthOld = stackArray.length;
-		char[] oldArray = new char[lengthOld];
-
-		System.arraycopy(stackArray, 0, oldArray, 0, stackArray.length);
-		stackArray = new char[lengthOld + 1];
-		System.arraycopy(oldArray, 0, stackArray, 0, oldArray.length);
-		stackArray[stackArray.length - 1] = c;
-		this.top = stackArray.length - 1;
+		
+		if(top< stackArray.length-1){
+			top++;
+			stackArray[top] = c;
+		}		
 	}
 
+	public char pop() {
+		char temp = stackArray[top];
+		top--;
+		return temp;
+	}
+
+	public boolean isEmpty() {
+		if(top <= 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean isFull() {
+		if(top == stackArray.length-1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public void solve(String s) {
 
 		for (int i = 0; i < s.length(); i++) {
@@ -86,7 +115,7 @@ public class Stack {
 
 				break;
 			default:
-				System.out.println("keine klammer überprungen");
+				System.out.println("keine klammer übersprungen");
 				break;
 			}
 			// }
@@ -96,64 +125,21 @@ public class Stack {
 	}
 
 	public static void main(String[] args) throws IOException {
-		// Stack s1 = new Stack();
-		// s1.push('T');
-		//
-		// System.out.println(s1.stackArray[s1.top]);
-		//
-		// s1.push('E');
-		// System.out.println(s1.stackArray[s1.top]);
-		//
-		// s1.push('S');
-		// System.out.println(s1.stackArray[s1.top]);
-		//
-		// s1.push('T');
-		// System.out.println(s1.stackArray[s1.top]);
-		//
-		// s1.pop();
-		// System.out.println(s1.stackArray[s1.top]);
-		//
-		// s1.pop();
-		// System.out.println(s1.stackArray[s1.top]);
-		//
-		// for (int i = 0; i < s1.stackArray.length; i++) {
-		// System.out.println(s1.stackArray[i]);
-		// }
-
-		// FileReader fr = new
-		// FileReader("\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
-		FileReader fr = new FileReader("bin\\aufgabenblatt03\\test");
-		BufferedReader br = new BufferedReader(fr);
-
+		File f = new File("C:\\Users\\Phili\\git\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
+		
+		Scanner fileReader = new Scanner(f, "UTF-8)");
+		
+		while(fileReader.hasNextLine())
+		{		
+//		FileReader fr = new FileReader("bin\\aufgabenblatt01\\Main.java");
+		
 		Stack s2 = new Stack();
-		String t = br.readLine();
-		System.out.println(t);
-		s2.solve(t);
+//		s2.readFiles();
+//		System.out.println(reader);
+//		s2.solve(t);
 		// s2.solve("((((Test)))))");
 	}
 
-	public char pop() {
-		char rC = stackArray[top];
-		char[] tempArray = new char[stackArray.length - 1];
-		System.arraycopy(stackArray, 0, tempArray, 0, stackArray.length - 1);
-		stackArray = new char[tempArray.length];
-		System.arraycopy(tempArray, 0, stackArray, 0, tempArray.length);
-		top--;
-		return rC;
-	}
 
-	public boolean isEmpty() {
-		if (stackArray.length <= 0) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean isFull() {
-		if (stackArray[top] != ' ') {
-			return true;
-		}
-		return false;
-	}
 
 }
