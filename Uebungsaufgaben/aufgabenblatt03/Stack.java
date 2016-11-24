@@ -1,6 +1,5 @@
 package aufgabenblatt03;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,20 +9,12 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.EmptyStackException;
 
-
 public class Stack {
 
 	private char[] stackArray;
 	private final int MAX = 20;
 	private int top;
 
-
-	public void readFiles(){
-		InputStream in = this.getClass().getResourceAsStream("/aufgabenblatt01/Main.java");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		System.out.println(reader);
-	}
-	
 	public Stack() {
 		stackArray = new char[0];
 		stackArray = new char[MAX];
@@ -32,10 +23,6 @@ public class Stack {
 
 	public void push(char c) {
 
-		if(top< stackArray.length-1){
-			top++;
-			stackArray[top] = c;
-		}		
 		if (top < MAX - 1) {
 			top++;
 			stackArray[top] = c;
@@ -48,25 +35,63 @@ public class Stack {
 		return temp;
 	}
 
-
-
-
 	public boolean isEmpty() {
-		if(top <= 0){
+		if (top < 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
 	public boolean isFull() {
-		if(top == stackArray.length-1){
+		if (top == stackArray.length - 1) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
+
+	public void solveComments(String s) {
+
+		for (int i = 0; i < stackArray.length; i++) {
+
+			char c = s.charAt(i);
+
+			switch (c) {
+			case '/':
+				if (i + 1 < stackArray.length) {
+					if (s.charAt(i + 1) == '*') {
+						push('*');
+						System.out.println("Kommentar auf");
+						i++;
+					}
+				}
+				break;
+
+			case '*':
+				if (i + 1 < stackArray.length) {
+					if (s.charAt(i + 1) == '/') {
+						if (stackArray[top] == '*') {
+							pop();
+							System.out.println("Kommentar zu");
+						}
+						i++;
+
+					}
+				}
+				break;
+
+			}
+		}
+
+		if (isEmpty()) {
+			System.out.println("Keine Fehler");
+		} else {
+			System.out.println("Fehler");
+		}
+
+	}
+
 	public void solve(String s) {
 
 		for (int i = 0; i < s.length(); i++) {
@@ -83,14 +108,10 @@ public class Stack {
 				push(c);
 				break;
 			case ')':
-				System.out.println(stackArray.length);
-				System.out.println("drin");
+				// System.out.println(stackArray.length);
+				// System.out.println("drin");
 				if (!isEmpty()) {
 					if (stackArray[top] == '(') {
-						// if (isEmpty()) {
-						// System.out.println("Fehler, Klammer(n) zuviel
-						// (hinten)");
-						// } else {
 						pop();
 						System.out.println("popped (");
 						// }
@@ -128,36 +149,38 @@ public class Stack {
 
 				break;
 			default:
-				System.out.println("keine klammer übersprungen");
+				// System.out.println("keine klammer übersprungen");
 				break;
 			}
 			// }
 		}
-		System.out.println("Fin");
+		// System.out.println("Fin");
 
 	}
+	
 
 	public static void main(String[] args) throws IOException {
-
-		File f = new File("C:\\Users\\Phili\\git\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
-		
-		Scanner fileReader = new Scanner(f, "UTF-8)");
-		
-		while(fileReader.hasNextLine())
-		{		
-//		FileReader fr = new FileReader("bin\\aufgabenblatt01\\Main.java");
-		
-
-		FileReader fr = new FileReader("bin\\aufgabenblatt03\\test");
-		BufferedReader br = new BufferedReader(fr);
-
-
 		Stack s2 = new Stack();
-//		s2.readFiles();
-//		System.out.println(reader);
-//		s2.solve(t);
-		// s2.solve("((((Test)))))");
-	}
+		File f = new File("D:\\HTWG\\WIN\\AlDa\\Uebungsaufgaben\\aufgabenblatt03\\test");
+		// File f = new
+		// File("D:\\HTWG\\WIN\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
+		Scanner fileReader = new Scanner(f, "UTF-8");
+
+//		while (fileReader.hasNextLine()) {
+//			s2.solve(fileReader.nextLine());
+//		}
+
+		Stack s3 = new Stack();
+		System.out.println("Rest S3:");
+		s3.solveComments("/*ababab/*cdcdcdc*/efef/*ghghgh*/*/");
+		for (int i = 0; i < s3.top; i++) {
+			System.out.println(s3.stackArray[i]);
+		}
+
+//		System.out.println("rest:");
+//		for (int i = 0; i < s2.top; i++) {
+//			System.out.println(s2.stackArray[i]);
+//		}
 
 	}
 
