@@ -53,13 +53,13 @@ public class Stack {
 
 	public void solveComments(String s) {
 
-		for (int i = 0; i < stackArray.length; i++) {
+		for (int i = 0; i < s.length(); i++) {
 
 			char c = s.charAt(i);
 
 			switch (c) {
 			case '/':
-				if (i + 1 < stackArray.length) {
+				if (i + 1 < s.length()) {
 					if (s.charAt(i + 1) == '*') {
 						push('*');
 						System.out.println("Kommentar auf");
@@ -69,7 +69,7 @@ public class Stack {
 				break;
 
 			case '*':
-				if (i + 1 < stackArray.length) {
+				if (i + 1 < s.length()) {
 					if (s.charAt(i + 1) == '/') {
 						if (stackArray[top] == '*') {
 							pop();
@@ -154,6 +154,12 @@ public class Stack {
 			}
 			// }
 		}
+		
+		if (isEmpty()) {
+			System.out.println("Keine Fehler");
+		} else {
+			System.out.println("Fehler");
+		}
 		// System.out.println("Fin");
 
 	}
@@ -161,23 +167,28 @@ public class Stack {
 
 	public static void main(String[] args) throws IOException {
 		Stack s2 = new Stack();
-		File f = new File("D:\\HTWG\\WIN\\AlDa\\Uebungsaufgaben\\aufgabenblatt03\\test");
+		File f = new File("C:\\Users\\Phili\\git\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
 		// File f = new
-		// File("D:\\HTWG\\WIN\\AlDa\\Uebungsaufgaben\\aufgabenblatt01\\Main.java");
+		// File("C:\\Users\\Phili\\git\\AlDa\\Uebungsaufgaben\\aufgabenblatt03\\test");
 		Scanner fileReader = new Scanner(f, "UTF-8");
 
 //		while (fileReader.hasNextLine()) {
 //			s2.solve(fileReader.nextLine());
 //		}
 
-		Stack s3 = new Stack();
-		System.out.println("Rest S3:");
-		s3.solveComments("/*ababab/*cdcdcdc*/efef/*ghghgh*/*/");
-		for (int i = 0; i < s3.top; i++) {
-			System.out.println(s3.stackArray[i]);
-		}
-
-//		System.out.println("rest:");
+		Stack s4 = new Stack();
+		
+		s4.solveComments("/*a/a*/");
+		
+//		Stack s3 = new Stack();
+//		System.out.println("Rest S3:");
+//		s3.solveComments("/*ababab/*cdcdcdc*/efef/*ghghgh*/*/");
+//		s3.solveComments("/*ababab*/");
+//		for (int i = 0; i < s3.top; i++) {
+//			System.out.println(s3.stackArray[i]);
+//		}
+//
+//		System.out.println("rest: S2");
 //		for (int i = 0; i < s2.top; i++) {
 //			System.out.println(s2.stackArray[i]);
 //		}
