@@ -170,7 +170,6 @@ public class StockTickArray {
 	
 	public static void insertionSort(StockTick[] st, int left, int right){
 		StockTick temp = new StockTick();
-		System.out.println("yeahyeah");
 		for (int i = left+1; i < right; i++) {
 			temp = st[i];
 			int j = i;

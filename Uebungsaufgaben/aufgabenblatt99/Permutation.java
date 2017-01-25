@@ -1,4 +1,4 @@
-package aufgabenblatt06;
+package aufgabenblatt99;
 
 import java.util.Arrays;
 import java.util.Scanner;
